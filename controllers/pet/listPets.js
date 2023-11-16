@@ -1,4 +1,4 @@
-const Pet = require("../../models/pet");
+const Pet = require("../../models/Pet");
 
 const listPets = async (req, res, next) => {
   const result = await Pet.find();

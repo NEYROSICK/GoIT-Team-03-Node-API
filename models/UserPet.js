@@ -1,15 +1,10 @@
 const { Schema, model } = require("mongoose");
 
-const petSchema = new Schema(
+const userPetSchema = new Schema(
   {
-    title: String,
     name: String,
     date: String,
     type: String,
-    sex: String,
-    location: String,
-    price: String,
-    comments: String,
     avatarURl: String,
     owner: {
       type: Schema.Types.ObjectId,
@@ -19,6 +14,6 @@ const petSchema = new Schema(
   { versionKey: false, timestamps: true }
 );
 
-const Pet = model("pet", petSchema);
+const UserPet = model("userpet", userPetSchema);
 
-module.exports = Pet;
+module.exports = UserPet;
