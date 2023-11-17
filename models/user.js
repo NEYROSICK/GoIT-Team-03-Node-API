@@ -16,6 +16,7 @@ const userSchema = new Schema({
     required: [true, "Set password for user"],
   },
   token: String,
+  favoritesArr: [{ type: Schema.Types.ObjectId, ref: "pet" }],
 });
 userSchema.post("save", handleMongooseModel);
 const User = model("user", userSchema);
