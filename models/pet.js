@@ -10,7 +10,7 @@ const petSchema = new Schema(
     location: String,
     price: String,
     comments: String,
-    avatarURl: String,
+    avatarURL: String,
     owner: {
       type: Schema.Types.ObjectId,
       ref: "user",
