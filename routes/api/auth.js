@@ -1,12 +1,11 @@
 const express = require("express");
 const cntrl = require("../../controllers/auth/index");
-const validate = require("../../middleware/validationMiddleware");
 const { schemas } = require("../../schemas/user");
-const { authenticate } = require("../../middleware/authenticate");
+const { authenticate, validationMiddleware } = require("../../middleware");
 const router = express.Router();
 
-router.post("/register", validate(schemas.registerSchema), cntrl.register);
-router.post("/login", validate(schemas.loginSchema), cntrl.login);
+router.post("/register", validationMiddleware(schemas.registerSchema), cntrl.register);
+router.post("/login", validationMiddleware(schemas.loginSchema), cntrl.login);
 
 router.post("/logout", authenticate, cntrl.logout);
 

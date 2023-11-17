@@ -7,10 +7,10 @@ const { nanoid } = require("nanoid");
 const avatarsDir = path.join(__dirname, "../", "../", "public", "petsAvatars");
 
 const addPet = async (req, res, next) => {
-  // const { _id } = req.user;
+  const { _id: owner } = req.user;
   const { path: tempUpload, originalname } = req.file;
 
-  const fileName = `${nanoid()}_${nanoid()}_${originalname}`;
+  const fileName = `${owner}_${nanoid()}_${originalname}`;
   const resultUpload = path.join(avatarsDir, fileName);
 
   await fs.rename(tempUpload, resultUpload);
@@ -25,17 +25,9 @@ const addPet = async (req, res, next) => {
 
   const avatarURL = await path.join("petsAvatars", fileName);
 
-  const result = await Pet.create({ ...req.body, avatarURL });
+  const result = await Pet.create({ ...req.body, avatarURL, owner });
 
   return res.status(201).json(result);
 };
-
-// const add = async (req, res) => {
-//   const { _id: owner } = req.user;
-
-//   const result = await Contact.create({ ...req.body, owner });
-
-//   res.status(201).json(result);
-// };
 
 module.exports = addPet;
