@@ -4,22 +4,6 @@ const cntrlWrapper = require("../../helpers/controllerWrapper");
 const { HttpError } = require("../../helpers/requestError");
 const jwt = require("jsonwebtoken");
 
-const register = async (req, res) => {
-  const { email, password } = req.body;
-  const user = await User.findOne({ email });
-  if (user) {
-    throw HttpError(409, "this email is already in use");
-  }
-
-  const hashPassword = await bcryptjs.hash(password, 10);
-  const newUser = await User.create({ ...req.body, password: hashPassword });
-  console.log(newUser);
-  res.status(201).json({
-    name: newUser.name,
-    email: newUser.email,
-  });
-};
-
 const login = async (req, res) => {
   const { email, password } = req.body;
   const user = await User.findOne({ email });
@@ -41,16 +25,7 @@ const login = async (req, res) => {
     token,
   });
 };
-const logout = async (req, res) => {
-  const { id } = req.user;
-  await User.findByIdAndUpdate(id, { token: "" });
-  res.json({
-    message: "logout success",
-  });
-};
 
 module.exports = {
-  register: cntrlWrapper(register),
   login: cntrlWrapper(login),
-  logout: cntrlWrapper(logout),
 };
