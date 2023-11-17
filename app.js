@@ -4,6 +4,7 @@ const cors = require("cors");
 
 const petRouter = require("./routes/api/pets");
 const userPetRouter = require("./routes/api/userPets");
+const authRouter = require("./routes/api/auth");
 
 const app = express();
 
@@ -15,6 +16,7 @@ app.use(express.json());
 
 app.use("/api/pets", petRouter);
 app.use("/api/userpets", userPetRouter);
+app.use("/api/auth", authRouter);
 
 app.use((req, res) => {
   res.status(404).json({ message: "Not Found" });
