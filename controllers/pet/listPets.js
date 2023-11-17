@@ -1,8 +1,17 @@
-const Pet = require("../../models/Pet");
+const Pet = require("../../models/pet");
 
-const listPets = async (req, res, next) => {
-  const result = await Pet.find();
-  return res.status(200).json(result);
+const listPets = async (req, res) => {
+  // const { _id: owner } = req.user;
+  const { page = 1, limit = 12 } = req.query;
+
+  const skip = (page - 1) * limit;
+  // if (favorite && !["false", "true"].includes(favorite)) {
+  //   throw HttpError(404, "Invalid filter falue");
+  // }
+  // const paramsObject = favorite ? { owner, favorite } : { owner };
+
+  // res.json(await Pet.find(paramsObject, "", { skip, limit }));
+  res.json(await Pet.find({}, "", { skip, limit }));
 };
 
 module.exports = listPets;
