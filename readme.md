@@ -14,6 +14,10 @@ SRV Посилання для приєднання до бд:
 
 `mongodb+srv://admin:4iaDmHbtZ8In1N8n@db-pets-project.zyfowtc.mongodb.net/db-pets-project`
 
+Вигляд файлика .env
+
+![.env file](./assets/env.png)
+
 ## Endpoint's бекенда
 
 `get` /api/pets &mdash; Отримання списку оголошень тваринок <br/>
