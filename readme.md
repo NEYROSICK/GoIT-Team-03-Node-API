@@ -17,7 +17,7 @@ SRV Посилання для приєднання до бд:
 ## Endpoint's бекенда
 
 `get` /api/pets &mdash; Отримання списку оголошень тваринок <br/>
-`put` /api/pets &mdash; Додавання оголошення про тваринку
+`post` /api/pets &mdash; Додавання оголошення про тваринку
 
 `get` /api/userpets &mdash; Отримання списку власних тваринок <br/>
-`put` /api/userpets &mdash; Додавання своєї тваринки до бд
+`post` /api/userpets &mdash; Додавання своєї тваринки до бд
