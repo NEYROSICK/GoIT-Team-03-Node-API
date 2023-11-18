@@ -7,8 +7,6 @@ const router = express.Router();
 
 router.post("/register", validationMiddleware(schemas.registerSchema), cntrl.register);
 router.post("/login", validationMiddleware(schemas.loginSchema), cntrl.login);
-
-router.patch('/:userId', validationMiddleware(schemas.usersSchema), cntrl.updateUser);
 router.post("/logout", authenticate, cntrl.logout);
 
 module.exports = router;

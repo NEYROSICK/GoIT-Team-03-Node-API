@@ -1,6 +1,6 @@
 const joi = require("joi");
 
-const addPet = joi.object({
+const addNotice = joi.object({
   title: joi.string().required().messages({
     "any.required": "Title is required. Please provide the Title for add.",
   }),
@@ -41,5 +41,5 @@ const addPet = joi.object({
 });
 
 module.exports = {
-  addPet,
+  addNotice,
 };
