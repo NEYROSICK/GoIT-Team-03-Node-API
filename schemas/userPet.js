@@ -11,6 +11,7 @@ const addUserPet = joi.object({
     "any.required": "Type is required. Please provide a type of your pet.",
   }),
   avatar: joi.string(),
+  comments: joi.string(),
   owner: joi.string(),
 });
 
