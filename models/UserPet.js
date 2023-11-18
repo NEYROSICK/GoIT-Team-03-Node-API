@@ -6,7 +6,7 @@ const userPetSchema = new Schema(
     date: String,
     type: String,
     comments: String,
-    avatarURl: String,
+    avatarURL: String,
     owner: {
       type: Schema.Types.ObjectId,
       ref: "user",
