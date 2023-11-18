@@ -1,6 +1,6 @@
 const { Schema, model } = require("mongoose");
 
-const petSchema = new Schema(
+const noticeSchema = new Schema(
   {
     title: String,
     name: String,
@@ -19,6 +19,6 @@ const petSchema = new Schema(
   { versionKey: false, timestamps: true }
 );
 
-const Pet = model("pet", petSchema);
+const Notice = model("notice", noticeSchema);
 
-module.exports = Pet;
+module.exports = Notice;

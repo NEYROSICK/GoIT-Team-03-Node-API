@@ -1,4 +1,4 @@
-const { User } = require("../../models/user");
+const User = require("../../models/user");
 const cntrlWrapper = require("../../helpers/controllerWrapper");
 
 const logout = async (req, res) => {

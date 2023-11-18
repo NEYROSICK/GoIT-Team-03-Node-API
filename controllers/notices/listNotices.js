@@ -1,6 +1,6 @@
-const Pet = require("../../models/pet");
+const Pet = require("../../models/notice");
 
-const listPets = async (req, res) => {
+const listNotices = async (req, res) => {
   // const { _id: owner } = req.user;
   const { page = 1, limit = 12 } = req.query;
 
@@ -14,4 +14,4 @@ const listPets = async (req, res) => {
   res.json(await Pet.find({}, "", { skip, limit }));
 };
 
-module.exports = listPets;
+module.exports = listNotices;

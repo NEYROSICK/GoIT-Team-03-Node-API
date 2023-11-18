@@ -6,11 +6,11 @@ function createUserModel() {
     name: {
       type: String,
       required: [true, "Name is required"],
-      minlength: [2, 'Name must be at least 2 characters long'],
-      maxlength: [16, 'Name can be at most 16 characters long'],
+      minlength: [2, "Name must be at least 2 characters long"],
+      maxlength: [16, "Name can be at most 16 characters long"],
       validate: {
-        validator: /^[a-zA-Z\s]+$/, 
-        message: 'Name must contain only letters and spaces',
+        validator: /^[a-zA-Z\s]+$/,
+        message: "Name must contain only letters and spaces",
       },
     },
     email: {
@@ -19,7 +19,7 @@ function createUserModel() {
       unique: true,
       validate: {
         validator: /^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$/,
-        message: 'Invalid email format',
+        message: "Invalid email format",
       },
     },
     password: {
@@ -27,7 +27,7 @@ function createUserModel() {
       required: [true, "Set password for user"],
     },
     token: String,
-    favoritesArr: [{ type: Schema.Types.ObjectId, ref: "pet" }],
+    favoritesArr: [{ type: Schema.Types.ObjectId, ref: "notice" }],
   });
 
   userSchema.post("save", handleMongooseModel);
@@ -38,6 +38,4 @@ function createUserModel() {
 
 const User = createUserModel();
 
-module.exports = {
-  User,
-};
+module.exports = User;

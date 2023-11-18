@@ -2,9 +2,10 @@ const express = require("express");
 const logger = require("morgan");
 const cors = require("cors");
 
-const petRouter = require("./routes/api/pets");
+const noticeRouter = require("./routes/api/notices");
 const userPetRouter = require("./routes/api/userPets");
 const authRouter = require("./routes/api/auth");
+const userRouter = require("./routes/api/user");
 
 const app = express();
 
@@ -14,9 +15,10 @@ app.use(logger(formatsLogger));
 app.use(cors());
 app.use(express.json());
 
-app.use("/api/pets", petRouter);
+app.use("/api/notices", noticeRouter);
 app.use("/api/userpets", userPetRouter);
 app.use("/api/auth", authRouter);
+app.use("/api/users", userRouter);
 
 app.use((req, res) => {
   res.status(404).json({ message: "Not Found" });

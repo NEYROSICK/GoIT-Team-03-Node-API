@@ -1,12 +1,13 @@
-const Pet = require("../../models/pet");
+const Notice = require("../../models/notice");
 const path = require("path");
 const fs = require("fs/promises");
 const Jimp = require("jimp");
 const { nanoid } = require("nanoid");
+const { requestError } = require("../../helpers");
 
-const avatarsDir = path.join(__dirname, "../", "../", "public", "petsAvatars");
+const avatarsDir = path.join(__dirname, "../", "../", "public", "noticesAvatars");
 
-const addPet = async (req, res, next) => {
+const addNotice = async (req, res, next) => {
   const { _id: owner } = req.user;
   const { path: tempUpload, originalname } = req.file;
 
@@ -19,15 +20,15 @@ const addPet = async (req, res, next) => {
     .then((img) => {
       return img.resize(250, 250).quality(80).write(resultUpload);
     })
-    .catch((err) => {
-      console.error(err);
+    .catch(() => {
+      throw requestError(500, "File reading error");
     });
 
-  const avatarURL = await path.join("petsAvatars", fileName);
+  const avatarURL = await path.join("noticesAvatars", fileName);
 
-  const result = await Pet.create({ ...req.body, avatarURL, owner });
+  const result = await Notice.create({ ...req.body, avatarURL, owner });
 
   return res.status(201).json(result);
 };
 
-module.exports = addPet;
+module.exports = addNotice;

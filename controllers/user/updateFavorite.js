@@ -1,4 +1,4 @@
-const { User } = require("../../models/user");
+const User = require("../../models/user");
 
 const updateFavorite = async (req, res) => {
   const { userId } = req.user;
