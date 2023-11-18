@@ -5,11 +5,21 @@ const userSchema = new Schema({
   name: {
     type: String,
     required: [true, "Name is required"],
+   minlength: [2, 'Name must be at least 2 characters long'],
+    maxlength: [16, 'Name can be at most 16 characters long'],
+    validate: {
+      validator: /^[a-zA-Z\s]+$/, // Лише літери та пробіли
+      message: 'Name must contain only letters and spaces',
+    },
   },
   email: {
     type: String,
     required: [true, "Email is required"],
     unique: true,
+     validate: {
+      validator: /^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$/,
+      message: 'Invalid email format',
+    },
   },
   password: {
     type: String,
