@@ -1,4 +1,4 @@
-const UserPet = require("../../models/UserPet");
+const Pet = require("../../models/pet");
 const { nanoid } = require("nanoid");
 const path = require("path");
 const fs = require("fs/promises");
@@ -6,8 +6,9 @@ const Jimp = require("jimp");
 
 const avatarsDir = path.join(__dirname, "../", "../", "public", "petsAvatars");
 
-const addUserPet = async (req, res, next) => {
+const addPet = async (req, res, next) => {
   const { _id: owner } = req.user;
+  console.log(req.file);
   const { path: tempUpload, originalname } = req.file;
 
   const fileName = `${owner}_${nanoid()}_${originalname}`;
@@ -25,9 +26,9 @@ const addUserPet = async (req, res, next) => {
 
   const avatarURL = await path.join("petsAvatars", fileName);
 
-  const result = await UserPet.create({ ...req.body, avatarURL, owner });
+  const result = await Pet.create({ ...req.body, avatarURL, owner });
 
   return res.status(201).json(result);
 };
 
-module.exports = addUserPet;
+module.exports = addPet;

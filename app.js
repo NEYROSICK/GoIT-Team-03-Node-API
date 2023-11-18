@@ -3,7 +3,7 @@ const logger = require("morgan");
 const cors = require("cors");
 
 const noticeRouter = require("./routes/api/notices");
-const userPetRouter = require("./routes/api/userPets");
+const petRouter = require("./routes/api/pets");
 const authRouter = require("./routes/api/auth");
 const userRouter = require("./routes/api/user");
 
@@ -16,7 +16,7 @@ app.use(cors());
 app.use(express.json());
 
 app.use("/api/notices", noticeRouter);
-app.use("/api/userpets", userPetRouter);
+app.use("/api/pets", petRouter);
 app.use("/api/auth", authRouter);
 app.use("/api/users", userRouter);
 
