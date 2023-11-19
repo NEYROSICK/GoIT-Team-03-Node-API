@@ -18,7 +18,7 @@ const usersSchema = Joi.object({
     .string()
     .pattern(/^\d{2}-\d{2}-\d{4}$/)
     .messages({
-      "any.required": "Date is required. Please provide a date of birth of your pet.",
+      "any.required": "Date is required. Please provide a date of your birth .",
     }).required(),
   phone: Joi.string().pattern(/^\+38\d{10}$/).message("Please enter valid phone").required(),
  city: Joi
