@@ -9,7 +9,9 @@ const deleteNotice = async (req, res, next) => {
   const { _id: owner } = req.user;
 
   const notice = await Notice.findById(noticeId);
-
+  if (!notice) {
+    throw requestError(404, "Notice not found");
+  }
   const ownerId = owner.toString();
   const noticeOwnerId = notice.owner.toString();
 
