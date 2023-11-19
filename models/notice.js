@@ -3,6 +3,7 @@ const { Schema, model } = require("mongoose");
 const noticeSchema = new Schema(
   {
     title: String,
+    category: String,
     name: String,
     date: String,
     type: String,

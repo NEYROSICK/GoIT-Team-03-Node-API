@@ -5,7 +5,7 @@ const listFavorite = require("./listFavorite");
 const listInGoodHands = require("./listInGoodHands");
 const listSell = require("./listSell");
 const listLostFound = require("./listLostFound");
-const listMyAds = require("./listMyAds");
+const getOne = require("./getOne");
 
 module.exports = {
   addNotice,
@@ -15,5 +15,5 @@ module.exports = {
   listInGoodHands,
   listSell,
   listLostFound,
-  listMyAds,
+  getOne,
 };

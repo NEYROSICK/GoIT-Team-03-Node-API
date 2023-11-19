@@ -32,7 +32,7 @@ const addNotice = joi.object({
       "string.pattern.base": "Location must be in a valid city format",
       "any.required": "Location is required. Please provide a location in city format.",
     }),
-  price: joi.string().required().min(1).messages({
+  price: joi.string().min(1).messages({
     "any.required": "Price is required. Please provide a price of your pet.",
   }),
   comments: joi.string(),

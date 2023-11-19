@@ -11,6 +11,10 @@ const addNotice = async (req, res, next) => {
   const { _id: owner } = req.user;
   const { path: tempUpload, originalname } = req.file;
 
+  if (req.body.category === "sell" && !req.body.price) {
+    throw requestError(404, "Missing field price");
+  }
+
   const fileName = `${owner}_${nanoid()}_${originalname}`;
   const resultUpload = path.join(avatarsDir, fileName);
 

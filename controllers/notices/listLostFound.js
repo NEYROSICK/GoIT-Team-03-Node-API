@@ -1,6 +1,11 @@
-const Notice = require("../../models/notice");
-const User = require("../../models/user");
+const { filterNotices } = require("../../helpers");
+
 const listLostFound = async (req, res) => {
-  res.json({ ok: true });
+  const { query = "", age, sex } = req.query;
+  const category = "lost-found";
+
+  const notices = await filterNotices(category, query, age, sex);
+  res.json({ notices });
 };
+
 module.exports = listLostFound;
