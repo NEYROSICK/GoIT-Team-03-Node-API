@@ -6,7 +6,11 @@ const wrapper = require("../../helpers/controllerWrapper");
 
 const router = express.Router();
 
-router.patch("/:userId", validationMiddleware(schemas.usersSchema), ctrl.updateUser);
-router.patch("/favorite", authenticate, wrapper(ctrl.updateFavorite));
+router.patch(
+  "/:userId",
+  validationMiddleware(schemas.usersSchema),
+  ctrl.updateUser
+);
+router.patch("/favorite/:noticeId", authenticate, wrapper(ctrl.updateFavorite));
 
 module.exports = router;

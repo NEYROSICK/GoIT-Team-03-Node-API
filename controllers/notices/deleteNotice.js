@@ -1,4 +1,5 @@
 const Notice = require("../../models/notice");
+const User = require("../../models/user");
 const path = require("path");
 const fs = require("fs/promises");
 const { requestError } = require("../../helpers");
@@ -13,9 +14,19 @@ const deleteNotice = async (req, res, next) => {
     throw requestError(400, "This notice is not yours");
   }
 
-  const avatarsDir = path.join(__dirname, "../", "../", "public", notice.avatarURL);
+  const avatarsDir = path.join(
+    __dirname,
+    "../",
+    "../",
+    "public",
+    notice.avatarURL
+  );
   fs.unlink(avatarsDir);
 
+  await User.updateMany(
+    { _id: { $in: notice.usersFavorite } },
+    { $pull: { favoritesArr: noticeId } }
+  );
   const result = await Notice.findByIdAndRemove(noticeId);
   if (!result) {
     throw requestError(404);
