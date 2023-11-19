@@ -1,6 +1,6 @@
 const { Schema, model } = require("mongoose");
 
-const handleMongooseModel = require("../helpers/handleMongooseModel");
+const requestError = require("../helpers/requestError");
 function createUserModel() {
   const userSchema = new Schema({
     name: {
@@ -25,12 +25,13 @@ function createUserModel() {
     password: {
       type: String,
       required: [true, "Set password for user"],
+      
     },
     token: String,
     favoritesArr: [{ type: Schema.Types.ObjectId, ref: "notice" }],
   });
 
-  userSchema.post("save", handleMongooseModel);
+  userSchema.post("save", requestError);
 
   const User = model("user", userSchema);
   return User;
