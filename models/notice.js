@@ -15,6 +15,7 @@ const noticeSchema = new Schema(
       type: Schema.Types.ObjectId,
       ref: "user",
     },
+    usersFavorite: [{ type: Schema.Types.ObjectId, ref: "user" }],
   },
   { versionKey: false, timestamps: true }
 );

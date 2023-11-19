@@ -24,7 +24,7 @@ const addNotice = async (req, res, next) => {
       throw requestError(500, "File reading error");
     });
 
-  const avatarURL = await path.join("noticesAvatars", fileName);
+  const avatarURL = path.join("noticesAvatars", fileName);
 
   const result = await Notice.create({ ...req.body, avatarURL, owner });
 
