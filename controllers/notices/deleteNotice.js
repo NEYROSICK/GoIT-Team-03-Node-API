@@ -10,7 +10,10 @@ const deleteNotice = async (req, res, next) => {
 
   const notice = await Notice.findById(noticeId);
 
-  if (notice.owner !== owner) {
+  const ownerId = owner.toString();
+  const noticeOwnerId = notice.owner.toString();
+
+  if (noticeOwnerId !== ownerId) {
     throw requestError(400, "This notice is not yours");
   }
 
