@@ -1,4 +1,4 @@
-const Pet = require("../../models/notice");
+const Notice = require("../../models/notice");
 
 const listNotices = async (req, res) => {
   // const { _id: owner } = req.user;
@@ -11,7 +11,7 @@ const listNotices = async (req, res) => {
   // const paramsObject = favorite ? { owner, favorite } : { owner };
 
   // res.json(await Pet.find(paramsObject, "", { skip, limit }));
-  res.json(await Pet.find({}, "", { skip, limit }));
+  res.json(await Notice.find({}, "", { skip, limit }));
 };
 
 module.exports = listNotices;

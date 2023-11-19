@@ -15,5 +15,10 @@ router.post(
   wrapper(ctrlPet.addNotice)
 );
 router.delete("/deleteNotice/:noticeId", authenticate, wrapper(ctrlPet.deleteNotice));
+router.get("/listFavorite", authenticate, wrapper(ctrlPet.listFavorite));
+router.get("/listInGoodHands", authenticate, wrapper(ctrlPet.listInGoodHands));
+router.get("/listSell", authenticate, wrapper(ctrlPet.listSell));
+router.get("/listLostFound", authenticate, wrapper(ctrlPet.listLostFound));
+router.get("/listMyAds", authenticate, wrapper(ctrlPet.listMyAds));
 
 module.exports = router;
