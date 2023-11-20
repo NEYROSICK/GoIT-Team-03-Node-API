@@ -7,7 +7,8 @@ const wrapper = require("../../helpers/controllerWrapper");
 const router = express.Router();
 
 router.patch(
-  "/:userId",
+  "/updateUser",
+  authenticate,
   validationMiddleware(schemas.usersSchema),
   ctrl.updateUser
 );

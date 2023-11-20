@@ -25,7 +25,6 @@ function createUserModel() {
     password: {
       type: String,
       required: [true, "Set password for user"],
-      
     },
     date: String,
     phone: String,
