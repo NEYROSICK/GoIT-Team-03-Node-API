@@ -1,17 +1,23 @@
 const Notice = require("../../models/notice");
 
+const { ageNotice } = require("../../helpers");
+
 const listNotices = async (req, res) => {
-  // const { _id: owner } = req.user;
-  const { page = 1, limit = 12 } = req.query;
-
+  const { query = "", age, sex, page, limit } = req.query;
   const skip = (page - 1) * limit;
-  // if (favorite && !["false", "true"].includes(favorite)) {
-  //   throw HttpError(404, "Invalid filter falue");
-  // }
-  // const paramsObject = favorite ? { owner, favorite } : { owner };
 
-  // res.json(await Pet.find(paramsObject, "", { skip, limit }));
-  res.json(await Notice.find({}, "", { skip, limit }));
+  let notices = await Notice.find({ title: { $regex: query } }, "", {
+    limit,
+    skip,
+  });
+  if (age) {
+    notices = notices.filter((notice) => ageNotice(notice, age));
+  }
+
+  if (sex) {
+    notices = notices.filter((notice) => notice.sex === sex);
+  }
+  res.json(notices);
 };
 
 module.exports = listNotices;
