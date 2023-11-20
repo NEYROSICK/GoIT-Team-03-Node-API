@@ -16,16 +16,10 @@ const deleteNotice = async (req, res, next) => {
   const noticeOwnerId = notice.owner.toString();
 
   if (noticeOwnerId !== ownerId) {
-    throw requestError(400, "This notice is not yours");
+    throw requestError(403, "This notice is not yours");
   }
 
-  const avatarsDir = path.join(
-    __dirname,
-    "../",
-    "../",
-    "public",
-    notice.avatarURL
-  );
+  const avatarsDir = path.join(__dirname, "../", "../", "public", notice.avatarURL);
   fs.unlink(avatarsDir);
 
   await User.updateMany(
