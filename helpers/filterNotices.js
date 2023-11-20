@@ -1,43 +1,19 @@
 const Notice = require("../models/notice");
+const ageNotice = require("./ageNotice");
 
-function ageNotice(notice, age) {
-  const today = new Date();
 
-  const noticeDate = new Date(notice.date);
+const filterNotices = async (
+  category,
+  age,
+  sex,
+  page = 1,
+  limit = 12,
+  query = ""
+) => {
+  const skip = (page - 1) * limit;
 
-  const ageDifference = today.getFullYear() - noticeDate.getFullYear();
-
-  switch (age) {
-    case "to-1":
-      if (ageDifference < 1) {
-        return notice;
-      }
-      break;
-    case "to-2":
-      if (ageDifference < 2) {
-        return notice;
-      }
-      break;
-    case "from-2":
-      if (ageDifference > 2) {
-        return notice;
-      }
-      break;
-    case "to-1-from-2":
-      if (ageDifference < 1 || ageDifference > 2) {
-        return notice;
-      }
-      break;
-    default:
-      return null;
-  }
-
-  return null;
-}
-
-const filterNotices = async (category, query = "", age, sex) => {
   let notices = await Notice.find({
-    $and: [{ category }, { title: { $regex: query } }],
+    $and: [{ category }, { title: { $regex: query } }, { skip, limit }],
   });
 
   if (age) {
