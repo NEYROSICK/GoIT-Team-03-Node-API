@@ -36,10 +36,9 @@ const usersSchema = Joi.object({
     .message("Email should have a format like: email@email.com"),
   date: Joi.string()
     .pattern(/^\d{2}-\d{2}-\d{4}$/)
-    .messages({
-      "any.required":
-        "Date is required. Invalid date of birth format. Please enter a valid date in the format dd-mm-yyyy.",
-    })
+    .message(
+      "Date is required. Invalid date of birth format. Please enter a valid date in the format dd-mm-yyyy."
+    )
     .required(),
   phone: Joi.string()
     .pattern(/^\+38\d{10}$/)
