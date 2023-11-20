@@ -8,6 +8,7 @@ const router = express.Router();
 
 router.patch(
   "/:userId",
+  authenticate,
   validationMiddleware(schemas.usersSchema),
   ctrl.updateUser
 );

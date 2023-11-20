@@ -1,11 +1,12 @@
 const User = require("../../models/user");
 const bcryptjs = require("bcrypt");
 const cntrlWrapper = require("../../helpers/controllerWrapper");
-const  requestError  = require("../../helpers/requestError");
+const requestError = require("../../helpers/requestError");
 const jwt = require("jsonwebtoken");
 
 const login = async (req, res) => {
   const { email, password } = req.body;
+
   const user = await User.findOne({ email });
   if (!user) {
     throw requestError(401, "email or password invalid");
