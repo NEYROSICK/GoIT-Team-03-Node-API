@@ -11,13 +11,11 @@ mongoose
   .then(() => {
     app.listen(PORT, () => {
       console.log(
-        `\nDatabase connection\x1b[32m succesful\x1b[0m. Use our API on port:\x1b[33m ${PORT}\x1b[0m`
+        `\n\x1b[32mSuccesful\x1b[0m database connection. Use our API on \x1b[36mhttps://goit-team-03-node.onrender.com/`
       );
     });
   })
   .catch((err) => {
-    console.log(
-      `Server not\x1b[31m running\x1b[0m. Error message: ${err.message}`
-    );
+    console.log(`Server not\x1b[31m running\x1b[0m. Error message: ${err.message}`);
     process.exit(1);
   });
