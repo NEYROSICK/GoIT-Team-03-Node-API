@@ -27,6 +27,9 @@ function createUserModel() {
       required: [true, "Set password for user"],
       
     },
+    date: String,
+    phone: String,
+    city: String,
     token: String,
     favoritesArr: [{ type: Schema.Types.ObjectId, ref: "notice" }],
   });
