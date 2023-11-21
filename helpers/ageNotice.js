@@ -17,12 +17,12 @@ function ageNotice(notice, age) {
       }
       break;
     case "from-2":
-      if (ageDifference > 2) {
+      if (ageDifference >= 2) {
         return notice;
       }
       break;
     case "to-1-from-2":
-      if (ageDifference < 1 || ageDifference > 2) {
+      if (ageDifference < 1 || ageDifference >= 2) {
         return notice;
       }
       break;

@@ -14,6 +14,9 @@ const addNotice = async (req, res, next) => {
   if (req.body.category === "sell" && !req.body.price) {
     throw requestError(404, "Missing field price");
   }
+  if (req.body.category !== "sell" && req.body.price) {
+    throw requestError(404, "You can't add price to this category");
+  }
 
   const fileName = `${owner}_${nanoid()}_${originalname}`;
   const resultUpload = path.join(avatarsDir, fileName);

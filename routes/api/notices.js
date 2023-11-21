@@ -20,5 +20,6 @@ router.get("/in-good-hands", wrapper(ctrlNotice.listInGoodHands));
 router.get("/sell", wrapper(ctrlNotice.listSell));
 router.get("/lost-found", wrapper(ctrlNotice.listLostFound));
 router.get("/getOne/:noticeId", wrapper(ctrlNotice.getOne));
+router.get("/myNotices", authenticate, wrapper(ctrlNotice.listMyNotices));
 
 module.exports = router;
