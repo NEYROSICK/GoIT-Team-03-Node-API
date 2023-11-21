@@ -6,6 +6,7 @@ const listInGoodHands = require("./listInGoodHands");
 const listSell = require("./listSell");
 const listLostFound = require("./listLostFound");
 const getOne = require("./getOne");
+const listMyNotices = require("./listMyNotices");
 
 module.exports = {
   addNotice,
@@ -16,4 +17,5 @@ module.exports = {
   listSell,
   listLostFound,
   getOne,
+  listMyNotices,
 };
