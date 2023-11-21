@@ -10,7 +10,7 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        background-color: #f8f2e2;
+        background-color: #fdd3ad;
         height: 100vh;
         width: 100%;
         margin: 0;
@@ -36,9 +36,9 @@
         text-fill-color: transparent;
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
-        animation: transition 3s forwards, textclip 3s linear infinite;
+        animation: transition 10s forwards, textclip 3s linear infinite;
         display: inline-block;
-        font-size: 100px;
+        font-size: 120px;
         font-family: "circular";
         margin: 0;
       }
@@ -53,6 +53,18 @@
         to {
           opacity: 100%;
           visibility: visible;
+        }
+      }
+
+      @media (max-width: 768px) {
+        .animate-character {
+          font-size: 80px;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .animate-character {
+          font-size: 40px;
         }
       }
     </style>
