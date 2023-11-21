@@ -1,6 +1,7 @@
 const express = require("express");
 const logger = require("morgan");
 const cors = require("cors");
+const path = require("path");
 
 const noticeRouter = require("./routes/api/notices");
 const petRouter = require("./routes/api/pets");
@@ -14,6 +15,10 @@ const formatsLogger = app.get("env") === "development" ? "dev" : "short";
 app.use(logger(formatsLogger));
 app.use(cors());
 app.use(express.json());
+
+app.get("/", (req, res) => {
+  return res.sendFile(path.join(__dirname, "/index.html"));
+});
 
 app.use("/api/notices", noticeRouter);
 app.use("/api/pets", petRouter);
