@@ -1,9 +1,5 @@
 const express = require("express");
-const {
-  validationMiddleware,
-  uploadMiddleware,
-  authenticate,
-} = require("../../middleware");
+const { validationMiddleware, uploadMiddleware, authenticate } = require("../../middleware");
 const schema = require("../../schemas/notice");
 const ctrlNotice = require("../../controllers/notices");
 const wrapper = require("../../helpers/controllerWrapper");
@@ -67,6 +63,37 @@ const router = express.Router();
  *     tags: [Notices]
  *     security:
  *       - bearerAuth: []
+ *     parameters:
+ *       - in: query
+ *         name: query
+ *         schema:
+ *           type: string
+ *         description: Filter notices by a search query
+ *       - in: query
+ *         name: category
+ *         schema:
+ *           type: string
+ *         description: Filter notices by a search category
+ *       - in: query
+ *         name: age
+ *         schema:
+ *           type: string
+ *         description: Filter notices by age
+ *       - in: query
+ *         name: sex
+ *         schema:
+ *           type: string
+ *         description: Filter notices by sex
+ *       - in: query
+ *         name: page
+ *         schema:
+ *           type: integer
+ *         description: Page number for pagination
+ *       - in: query
+ *         name: limit
+ *         schema:
+ *           type: integer
+ *         description: Number of notices per page
  *     responses:
  *       200:
  *         description: A list of notices
@@ -76,6 +103,8 @@ const router = express.Router();
  *               type: array
  *               items:
  *                 $ref: '#/components/schemas/Notice'
+ *       404:
+ *         description: Missing or invalid fields
  *       500:
  *         description: Server error
  */
@@ -169,69 +198,8 @@ router.post(
  *         description: Server error
  */
 
-router.delete(
-  "/deleteNotice/:noticeId",
-  authenticate,
-  wrapper(ctrlNotice.deleteNotice)
-);
-/**
- * @swagger
- * /api/notices/in-good-hands:
- *   get:
- *     summary: Get notices in good hands
- *     tags: [Notices]
- *     responses:
- *       200:
- *         description: A list of notices in good hands
- *         content:
- *           application/json:
- *             schema:
- *               type: array
- *               items:
- *                 $ref: '#/components/schemas/Notice'
- *       500:
- *         description: Server error
- */
-router.get("/in-good-hands", wrapper(ctrlNotice.listInGoodHands));
+router.delete("/deleteNotice/:noticeId", authenticate, wrapper(ctrlNotice.deleteNotice));
 
-/**
- * @swagger
- * /api/notices/sell:
- *   get:
- *     summary: Get notices for sale
- *     tags: [Notices]
- *     responses:
- *       200:
- *         description: A list of notices for sale
- *         content:
- *           application/json:
- *             schema:
- *               type: array
- *               items:
- *                 $ref: '#/components/schemas/Notice'
- *       500:
- *         description: Server error
- */
-router.get("/sell", wrapper(ctrlNotice.listSell));
-/**
- * @swagger
- * /api/notices/lost-found:
- *   get:
- *     summary: Get lost and found notices
- *     tags: [Notices]
- *     responses:
- *       200:
- *         description: A list of lost and found notices
- *         content:
- *           application/json:
- *             schema:
- *               type: array
- *               items:
- *                 $ref: '#/components/schemas/Notice'
- *       500:
- *         description: Server error
- */
-router.get("/lost-found", wrapper(ctrlNotice.listLostFound));
 /**
  * @swagger
  * /api/notices/getOne/{noticeId}:
@@ -266,6 +234,32 @@ router.get("/getOne/:noticeId", wrapper(ctrlNotice.getOne));
  *     tags: [Notices]
  *     security:
  *       - bearerAuth: []
+ *     parameters:
+ *       - in: query
+ *         name: query
+ *         schema:
+ *           type: string
+ *         description: Filter notices by a search query
+ *       - in: query
+ *         name: age
+ *         schema:
+ *           type: string
+ *         description: Filter notices by age
+ *       - in: query
+ *         name: sex
+ *         schema:
+ *           type: string
+ *         description: Filter notices by sex
+ *       - in: query
+ *         name: page
+ *         schema:
+ *           type: integer
+ *         description: Page number for pagination
+ *       - in: query
+ *         name: limit
+ *         schema:
+ *           type: integer
+ *         description: Number of notices per page
  *     responses:
  *       200:
  *         description: A list of user's notices
