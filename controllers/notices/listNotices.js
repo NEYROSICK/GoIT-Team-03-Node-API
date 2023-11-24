@@ -4,7 +4,8 @@ const { requestError } = require("../../helpers");
 const { ageNotice } = require("../../helpers");
 
 const listNotices = async (req, res) => {
-  const { query = "", category, age, sex, page, limit } = req.query;
+  const { query = "", age, sex, page, limit } = req.query;
+  const { category } = req.params;
   const skip = (page - 1) * limit;
 
   if (!category) {
