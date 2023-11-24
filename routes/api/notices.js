@@ -283,4 +283,54 @@ router.get("/getOne/:noticeId", wrapper(ctrlNotice.getOne));
 
 router.get("/myNotices", authenticate, wrapper(ctrlNotice.listMyNotices));
 
+/**
+ * @swagger
+ * /api/notices/myFavorite:
+ *   get:
+ *     summary: Get user's favorite notices
+ *     tags: [Notices]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: query
+ *         name: query
+ *         schema:
+ *           type: string
+ *         description: Filter notices by a search query
+ *       - in: query
+ *         name: age
+ *         schema:
+ *           type: string
+ *         description: Filter notices by age
+ *       - in: query
+ *         name: sex
+ *         schema:
+ *           type: string
+ *         description: Filter notices by sex
+ *       - in: query
+ *         name: page
+ *         schema:
+ *           type: integer
+ *         description: Page number for pagination
+ *       - in: query
+ *         name: limit
+ *         schema:
+ *           type: integer
+ *         description: Number of notices per page
+ *     responses:
+ *       200:
+ *         description: A list of user's favorite notices
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/Notice'
+ *       500:
+ *         description: Server error
+ */
+
+router.get("/myFavorite", authenticate, wrapper(ctrlNotice.listFavorite));
+
+
 module.exports = router;
