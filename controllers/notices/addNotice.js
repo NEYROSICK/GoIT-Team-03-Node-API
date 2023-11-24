@@ -5,7 +5,13 @@ const Jimp = require("jimp");
 const { nanoid } = require("nanoid");
 const { requestError } = require("../../helpers");
 
-const avatarsDir = path.join(__dirname, "../", "../", "public", "noticesAvatars");
+const avatarsDir = path.join(
+  __dirname,
+  "../",
+  "../",
+  "public",
+  "noticesAvatars"
+);
 
 const addNotice = async (req, res, next) => {
   const { _id: owner } = req.user;
@@ -31,7 +37,12 @@ const addNotice = async (req, res, next) => {
       throw requestError(500, "File reading error");
     });
 
-  const avatarURL = path.join("noticesAvatars", fileName);
+  const avatarURL = path.join(
+    "https://goit-team-03-node.onrender.com",
+    "public",
+    "noticesAvatars",
+    fileName
+  );
 
   const result = await Notice.create({ ...req.body, avatarURL, owner });
 
