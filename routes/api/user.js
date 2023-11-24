@@ -1,7 +1,7 @@
 const express = require("express");
 const ctrl = require("../../controllers/user");
 const { schemas } = require("../../schemas/user");
-const { validationMiddleware, authenticate } = require("../../middleware");
+const { validationMiddleware, authenticate, uploadMiddleware } = require("../../middleware");
 const wrapper = require("../../helpers/controllerWrapper");
 
 const router = express.Router();
@@ -64,6 +64,8 @@ const router = express.Router();
  *                 type: string
  *               city:
  *                 type: string
+ *               avatarURL:
+ *                 type: string
  *     responses:
  *       200:
  *         description: User information updated successfully
@@ -84,8 +86,9 @@ const router = express.Router();
 router.patch(
   "/updateUser",
   authenticate,
+  uploadMiddleware.single("image"),
   validationMiddleware(schemas.usersSchema),
-  ctrl.updateUser
+  ctrl.updateUser, 
 );
 
 /**
