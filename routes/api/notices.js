@@ -1,5 +1,9 @@
 const express = require("express");
-const { validationMiddleware, uploadMiddleware, authenticate } = require("../../middleware");
+const {
+  validationMiddleware,
+  uploadMiddleware,
+  authenticate,
+} = require("../../middleware");
 const schema = require("../../schemas/notice");
 const ctrlNotice = require("../../controllers/notices");
 const wrapper = require("../../helpers/controllerWrapper");
@@ -109,7 +113,7 @@ const router = express.Router();
  *         description: Server error
  */
 
-router.get("/", wrapper(ctrlNotice.listNotices));
+router.get("/:category", wrapper(ctrlNotice.listNotices));
 
 /**
  * @swagger
@@ -198,7 +202,11 @@ router.post(
  *         description: Server error
  */
 
-router.delete("/deleteNotice/:noticeId", authenticate, wrapper(ctrlNotice.deleteNotice));
+router.delete(
+  "/deleteNotice/:noticeId",
+  authenticate,
+  wrapper(ctrlNotice.deleteNotice)
+);
 
 /**
  * @swagger
