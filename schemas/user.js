@@ -30,6 +30,7 @@ const loginSchema = Joi.object({
     .required(),
 });
 const usersSchema = Joi.object({
+  avatarURL: Joi.string(),
   name: Joi.string().min(2).max(16),
   email: Joi.string()
     .email()
