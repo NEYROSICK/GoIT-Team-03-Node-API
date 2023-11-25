@@ -7,15 +7,23 @@ const listNotices = async (req, res) => {
   const { query = "", age, sex, page, limit } = req.query;
   const { category } = req.params;
   const skip = (page - 1) * limit;
+  const acceptedCategories = ["sell", "in-good-hands", "lost-found"];
 
   if (!category) {
     throw requestError(404, "Missing field category");
   }
 
-  let notices = await Notice.find({ $and: [{ category }, { title: { $regex: query } }] }, "", {
-    limit,
-    skip,
-  });
+  if (!acceptedCategories.includes(category)) {
+    throw requestError(404, "Category not found");
+  }
+  let notices = await Notice.find(
+    { $and: [{ category }, { title: { $regex: query } }] },
+    "",
+    {
+      limit,
+      skip,
+    }
+  );
 
   if (age) {
     notices = notices.filter((notice) => ageNotice(notice, age));
