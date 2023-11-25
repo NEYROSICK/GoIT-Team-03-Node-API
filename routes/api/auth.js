@@ -88,12 +88,7 @@ const router = express.Router();
  *         description: Server error
  */
 
-
-router.post(
-  "/register",
-  validationMiddleware(schemas.registerSchema),
-  cntrl.register
-);
+router.post("/register", validationMiddleware(schemas.registerSchema), cntrl.register);
 
 /**
  * @swagger
@@ -137,7 +132,6 @@ router.post(
  *         description: Server error
  */
 
-
 router.post("/login", validationMiddleware(schemas.loginSchema), cntrl.login);
 
 /**
@@ -164,6 +158,6 @@ router.post("/login", validationMiddleware(schemas.loginSchema), cntrl.login);
  *         description: Server error
  */
 
-router.post("/logout", authenticate, cntrl.logout);
+router.post("/logout", cntrl.logout);
 
 module.exports = router;
