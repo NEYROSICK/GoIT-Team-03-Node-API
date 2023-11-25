@@ -4,7 +4,7 @@ const { ageNotice } = require("../../helpers");
 
 const listFavorite = async (req, res) => {
   const { _id } = req.user;
-  const { page = 1, limit = 12, query = "", age, sex } = req.query;
+  const { query = "", age, sex, page, limit } = req.query;
   const skip = (page - 1) * limit;
   const user = await User.findById(_id);
   let notices = await Notice.find({$and:[{ _id: { $in: user.favoritesArr } }, { title: { $regex: query } }]}, "", {
