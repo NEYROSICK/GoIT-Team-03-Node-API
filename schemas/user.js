@@ -3,7 +3,7 @@ const Joi = require("joi");
 const registerSchema = Joi.object({
   name: Joi.string().min(2).max(16).required(),
   email: Joi.string()
-    .email()
+    .email({ minDomainSegments: 2, tlds: { allow: ["com", "net"] } })
     .message("Email should have a format like: email@email.com")
     .required(),
   password: Joi.string()
@@ -17,7 +17,7 @@ const registerSchema = Joi.object({
 });
 const loginSchema = Joi.object({
   email: Joi.string()
-    .email()
+    .email({ minDomainSegments: 2, tlds: { allow: ["com", "net"] } })
     .message("Email should have a format like: email@email.com")
     .required(),
   password: Joi.string()
@@ -33,7 +33,7 @@ const usersSchema = Joi.object({
   avatarURL: Joi.string(),
   name: Joi.string().min(2).max(16),
   email: Joi.string()
-    .email()
+    .email({ minDomainSegments: 2, tlds: { allow: ["com", "net"] } })
     .message("Email should have a format like: email@email.com"),
   date: Joi.string()
     .pattern(/^\d{2}-\d{2}-\d{4}$/)
