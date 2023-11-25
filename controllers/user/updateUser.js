@@ -9,6 +9,12 @@ const avatarsDir = path.join(__dirname, "../", "../", "public", "usersAvatars");
 
 const updateUser = async (req, res, next) => {
   const { _id: userId } = req.user;
+  const { email } = req.body;
+  const user = await User.findOne({ email });
+  if (user && user.id !== userId.toString()) {
+    return res.status(409).json({ message: "This email is already in use" });
+  }
+
   const updateData = req.body;
 
   try {
@@ -47,8 +53,7 @@ const updateUser = async (req, res, next) => {
 
     return res.json({
       message: "User updated successfully",
-      user: updatedUser
-     
+      user: updatedUser,
     });
   } catch (error) {
     console.error("Error updating user:", error);

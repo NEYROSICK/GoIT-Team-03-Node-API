@@ -3,8 +3,8 @@ const Joi = require("joi");
 const registerSchema = Joi.object({
   name: Joi.string().min(2).max(16).required(),
   email: Joi.string()
-    .email()
-    .message("Email should have a format like: email@email.com")
+    .email({ minDomainSegments: 2, tlds: { allow: ["com", "net", "org"] } })
+    .message("Invalid Email. Please provide a valid email ending .com, .net or .org")
     .required(),
   password: Joi.string()
     .min(6)
@@ -17,8 +17,8 @@ const registerSchema = Joi.object({
 });
 const loginSchema = Joi.object({
   email: Joi.string()
-    .email()
-    .message("Email should have a format like: email@email.com")
+    .email({ minDomainSegments: 2, tlds: { allow: ["com", "net", "org"] } })
+    .message("Invalid Email. Please provide a valid email ending .com, .net or .org")
     .required(),
   password: Joi.string()
     .min(6)
@@ -33,8 +33,8 @@ const usersSchema = Joi.object({
   avatarURL: Joi.string(),
   name: Joi.string().min(2).max(16),
   email: Joi.string()
-    .email()
-    .message("Email should have a format like: email@email.com"),
+    .email({ minDomainSegments: 2, tlds: { allow: ["com", "net", "org"] } })
+    .message("Invalid Email. Please provide a valid email ending .com, .net or .org"),
   date: Joi.string()
     .pattern(/^\d{2}-\d{2}-\d{4}$/)
     .message(
@@ -49,8 +49,7 @@ const usersSchema = Joi.object({
     .pattern(/^[a-zA-Z]+(?:[\s-][a-zA-Z]+)*$/)
     .messages({
       "string.pattern.base": "Location must be in a valid city format",
-      "any.required":
-        "Location is required. Please provide a location in city format.",
+      "any.required": "Location is required. Please provide a location in city format.",
     })
     .required(),
 });
