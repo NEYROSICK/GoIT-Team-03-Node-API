@@ -27,7 +27,14 @@ const updateUser = async (req, res, next) => {
           throw requestError(500, "File reading error");
         });
 
-      updateData.avatarURL = fileName;
+      const avatarURL = path.join(
+        "https://goit-team-03-node.onrender.com",
+        "public",
+        "usersAvatars",
+        fileName
+      );
+
+      updateData.avatarURL = avatarURL;
     }
 
     const updatedUser = await User.findByIdAndUpdate(userId, updateData, {
@@ -40,11 +47,13 @@ const updateUser = async (req, res, next) => {
 
     return res.json({
       message: "User updated successfully",
-      user: updatedUser,
+      user: updatedUser
+     
     });
   } catch (error) {
     console.error("Error updating user:", error);
     return res.status(500).json({ message: "Internal Server Error" });
   }
 };
+
 module.exports = updateUser;
