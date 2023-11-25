@@ -11,7 +11,7 @@ const updateUser = async (req, res, next) => {
   const { _id: userId } = req.user;
   const { email } = req.body;
   const user = await User.findOne({ email });
-  if (user) {
+  if (user && user.id !== userId.toString()) {
     return res.status(409).json({ message: "This email is already in use" });
   }
 
