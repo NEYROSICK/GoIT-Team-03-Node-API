@@ -30,7 +30,7 @@ const options = {
     },
     servers: [
       {
-        url: "http://localhost:3000",
+        url: "https://goit-team-03-node.onrender.com/",
       },
     ],
   },
