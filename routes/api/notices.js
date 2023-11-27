@@ -279,6 +279,41 @@ router.get("/myFavorite", authenticate, wrapper(ctrlNotice.listFavorite));
 
 /**
  * @swagger
+ * /api/notices/favorite/{noticeId}:
+ *   patch:
+ *     summary: Update user favorites
+ *     tags: [Notices]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: noticeId
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: The ID of the notice to be favorited/unfavorited
+ *     responses:
+ *       200:
+ *         description: Successfully added/removed from favorites
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *       401:
+ *         description: Unauthorized, authentication failed
+ *       404:
+ *         description: User or notice not found
+ *       500:
+ *         description: Server error
+ */
+
+router.patch("/favorite/:noticeId", authenticate, wrapper(ctrlNotice.updateFavorite));
+
+/**
+ * @swagger
  * /api/notices:
  *   get:
  *     summary: Get all notices
