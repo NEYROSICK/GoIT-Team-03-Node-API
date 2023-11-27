@@ -1,7 +1,7 @@
 const express = require("express");
 const cntrl = require("../../controllers/auth/index");
 const { schemas } = require("../../schemas/user");
-const { authenticate, validationMiddleware } = require("../../middleware");
+const { validationMiddleware } = require("../../middleware");
 
 const router = express.Router();
 
@@ -88,7 +88,11 @@ const router = express.Router();
  *         description: Server error
  */
 
-router.post("/register", validationMiddleware(schemas.registerSchema), cntrl.register);
+router.post(
+  "/register",
+  validationMiddleware(schemas.registerSchema),
+  cntrl.register
+);
 
 /**
  * @swagger
