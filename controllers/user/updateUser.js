@@ -2,7 +2,7 @@ const User = require("../../models/user");
 const path = require("path");
 const fs = require("fs/promises");
 const Jimp = require("jimp");
-const { nanoid } = require("nanoid");
+
 const { requestError } = require("../../helpers");
 
 const avatarsDir = path.join(__dirname, "../", "../", "public", "usersAvatars");
@@ -12,6 +12,8 @@ const updateUser = async (req, res, next) => {
   const { email } = req.body;
   const user = await User.findOne({ email });
   if (user && user.id !== userId.toString()) {
+    const { path: tempUpload } = req.file;
+    await fs.unlink(tempUpload);
     return res.status(409).json({ message: "This email is already in use" });
   }
 
@@ -20,8 +22,15 @@ const updateUser = async (req, res, next) => {
   try {
     if (req.file) {
       const { path: tempUpload, originalname } = req.file;
-      const fileName = `${userId}_${nanoid()}_${originalname}`;
+      const fileName = `${userId}_${originalname}`;
       const resultUpload = path.join(avatarsDir, fileName);
+
+      if (user && user.avatarURL) {
+        const oldAvatarName = path.basename(user.avatarURL);
+        const oldAvatarPath = path.join(avatarsDir, oldAvatarName);
+
+        await fs.unlink(oldAvatarPath);
+      }
 
       await fs.rename(tempUpload, resultUpload);
 
