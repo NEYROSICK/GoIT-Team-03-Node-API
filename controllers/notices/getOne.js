@@ -12,8 +12,9 @@ const getOne = async (req, res) => {
   const owner = await User.findById(notice.owner, {
     token: 0,
     favoritesArr: 0,
-    password: 0,
+    _id: 0,
     __v: 0,
+    name: 0,
   });
 
   res.status(200).json({ notice, owner });
