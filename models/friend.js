@@ -11,7 +11,6 @@ const friendsSchema = new Schema(
     phone: String,
     email: String,
     },
-    //   { versionKey: false, timestamps: true }
 );
 
 const Friend = model("Friend", friendsSchema);
