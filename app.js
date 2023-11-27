@@ -10,7 +10,7 @@ const petRouter = require("./routes/api/pets");
 const authRouter = require("./routes/api/auth");
 const userRouter = require("./routes/api/user");
 const newsRouter = require("./routes/api/news");
-const ourFriends = require('./routes/api/Friends')
+const ourFriends = require('./routes/api/friends')
 
 const app = express();
 
