@@ -7,10 +7,17 @@ const listFavorite = async (req, res) => {
   const { query = "", age, sex, page, limit } = req.query;
   const skip = (page - 1) * limit;
   const user = await User.findById(_id);
-  let notices = await Notice.find({$and:[{ _id: { $in: user.favoritesArr } }, { title: { $regex: query } }]}, "", {
-    limit,
-    skip,
-  });
+  let notices = await Notice.find(
+    {
+      $and: [{ _id: { $in: user.favoritesArr } }, { title: { $regex: query } }],
+    },
+    "",
+    {
+      limit,
+      skip,
+    }
+  );
+  const totalCount = await Notice.countDocuments(notices);
   if (age) {
     notices = notices.filter((notice) => ageNotice(notice, age));
   }
@@ -19,6 +26,6 @@ const listFavorite = async (req, res) => {
     notices = notices.filter((notice) => notice.sex === sex);
   }
 
-  res.json(notices);
+  res.json({ notices, totalCount });
 };
 module.exports = listFavorite;

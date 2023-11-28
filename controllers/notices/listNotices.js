@@ -24,6 +24,7 @@ const listNotices = async (req, res) => {
       skip,
     }
   );
+  const totalCount = await Notice.countDocuments(notices)
 
   if (age) {
     notices = notices.filter((notice) => ageNotice(notice, age));
@@ -33,7 +34,7 @@ const listNotices = async (req, res) => {
     notices = notices.filter((notice) => notice.sex === sex);
   }
 
-  res.json(notices);
+  res.json({notices, totalCount});
 };
 
 module.exports = listNotices;

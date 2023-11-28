@@ -6,6 +6,7 @@ const getNews = async (req, res, next) => {
     limit,
     skip,
   });
-  res.json(news);
+  const totalCount = await News.countDocuments(news);
+  res.json({ news, totalCount });
 };
 module.exports = getNews;
