@@ -7,11 +7,15 @@ const listMyNotices = async (req, res) => {
   const { _id: owner } = req.user;
   const skip = (page - 1) * limit;
 
-  let notices = await Notice.find({ $and: [{ owner }, { title: { $regex: query } }] }, "", {
-    limit,
-    skip,
-  });
-
+  let notices = await Notice.find(
+    { $and: [{ owner }, { title: { $regex: query } }] },
+    "",
+    {
+      limit,
+      skip,
+    }
+  );
+  const totalCount = await Notice.countDocuments(notices);
   if (age) {
     notices = notices.filter((notice) => ageNotice(notice, age));
   }
@@ -20,7 +24,7 @@ const listMyNotices = async (req, res) => {
     notices = notices.filter((notice) => notice.sex === sex);
   }
 
-  res.json(notices);
+  res.json({ notices, totalCount });
 };
 
 module.exports = listMyNotices;
