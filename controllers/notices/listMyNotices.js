@@ -8,7 +8,7 @@ const listMyNotices = async (req, res) => {
   const skip = (page - 1) * limit;
 
   let notices = await Notice.find(
-    { $and: [{ owner }, { title: { $regex: query } }] },
+    { $and: [{ owner }, { title: { $regex: query, $options: "i" } }] },
     "",
     {
       limit,

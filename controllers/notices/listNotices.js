@@ -17,14 +17,14 @@ const listNotices = async (req, res) => {
     throw requestError(404, "Category not found");
   }
   let notices = await Notice.find(
-    { $and: [{ category }, { title: { $regex: query } }] },
+    { $and: [{ category }, { title: { $regex: query, $options: "i" } }] },
     "",
     {
       limit,
       skip,
     }
   );
-  const totalCount = await Notice.countDocuments(notices)
+  const totalCount = await Notice.countDocuments(notices);
 
   if (age) {
     notices = notices.filter((notice) => ageNotice(notice, age));
@@ -34,7 +34,7 @@ const listNotices = async (req, res) => {
     notices = notices.filter((notice) => notice.sex === sex);
   }
 
-  res.json({notices, totalCount});
+  res.json({ notices, totalCount });
 };
 
 module.exports = listNotices;
