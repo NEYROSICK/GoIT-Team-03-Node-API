@@ -2,8 +2,8 @@ const User = require("../../models/user");
 const cntrlWrapper = require("../../helpers/controllerWrapper");
 
 const logout = async (req, res) => {
-  const { id } = req.params;
-  await User.findByIdAndUpdate(id, { token: "" });
+  const { _id } = req.user;
+  await User.findByIdAndUpdate(_id, { token: "" }, { new: true });
   res.json({
     message: "logout success",
   });
