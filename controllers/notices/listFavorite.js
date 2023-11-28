@@ -9,7 +9,10 @@ const listFavorite = async (req, res) => {
   const user = await User.findById(_id);
   let notices = await Notice.find(
     {
-      $and: [{ _id: { $in: user.favoritesArr } }, { title: { $regex: query } }],
+      $and: [
+        { _id: { $in: user.favoritesArr } },
+        { title: { $regex: query, $options: "i" } },
+      ],
     },
     "",
     {
