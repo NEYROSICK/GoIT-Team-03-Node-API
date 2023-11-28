@@ -16,14 +16,10 @@ const listNotices = async (req, res) => {
   if (!acceptedCategories.includes(category)) {
     throw requestError(404, "Category not found");
   }
-  let notices = await Notice.find(
-    { $and: [{ category }, { title: { $regex: query, $options: "i" } }] },
-    "",
-    {
-      limit,
-      skip,
-    }
-  );
+  let notices = await Notice.find({ $and: [{ category }, { title: { $regex: query, $options: "i" } }] }, "", {
+    limit,
+    skip,
+  });
   const totalCount = await Notice.countDocuments(notices);
 
   if (age) {
