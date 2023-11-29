@@ -42,8 +42,8 @@ const usersSchema = Joi.object({
     )
     .required(),
   phone: Joi.string()
-    .pattern(/^\+38\d{10}$/)
-    .message("Please enter valid phone +380000000000")
+    .pattern(/^\+\d{12}$/)
+    .message("Please enter valid phone +000000000000")
     .required(),
   city: Joi.string()
     .pattern(/^[a-zA-Z]+(?:[\s-][a-zA-Z]+)*$/)
