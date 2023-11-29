@@ -62,10 +62,15 @@ const router = express.Router();
  *         description: Successfully retrieved news
  *         content:
  *           application/json:
- *             schema:
- *               type: array
- *               items:
- *                 $ref: '#/components/schemas/News'
+ *             type: object
+ *               properties:
+ *                 news:
+ *                   type: array
+ *                   items:
+ *                     $ref: '#/components/schemas/News'
+ *                 totalCount:
+ *                   type: integer
+ *
  *       400:
  *         description: Bad request, invalid query parameter
  *       500:
