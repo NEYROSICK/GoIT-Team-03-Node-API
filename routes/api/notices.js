@@ -59,7 +59,6 @@ const router = express.Router();
  *           description: Owner's ID
  */
 
-
 /**
  * @swagger
  * /api/notices/addNotice:
@@ -179,6 +178,7 @@ router.delete(
  *         description: Server error
  */
 router.get("/getOne/:noticeId", wrapper(ctrlNotice.getOne));
+
 /**
  * @swagger
  * /api/notices/myNotices:
@@ -219,9 +219,14 @@ router.get("/getOne/:noticeId", wrapper(ctrlNotice.getOne));
  *         content:
  *           application/json:
  *             schema:
- *               type: array
- *               items:
- *                 $ref: '#/components/schemas/Notice'
+ *               type: object
+ *               properties:
+ *                 notices:
+ *                   type: array
+ *                   items:
+ *                     $ref: '#/components/schemas/Notice'
+ *                 totalCount:
+ *                   type: integer
  *       500:
  *         description: Server error
  */
@@ -268,9 +273,14 @@ router.get("/myNotices", authenticate, wrapper(ctrlNotice.listMyNotices));
  *         content:
  *           application/json:
  *             schema:
- *               type: array
- *               items:
- *                 $ref: '#/components/schemas/Notice'
+ *               type: object
+ *               properties:
+ *                 notices:
+ *                   type: array
+ *                   items:
+ *                     $ref: '#/components/schemas/Notice'
+ *                 totalCount:
+ *                   type: integer
  *       500:
  *         description: Server error
  */
@@ -310,27 +320,32 @@ router.get("/myFavorite", authenticate, wrapper(ctrlNotice.listFavorite));
  *         description: Server error
  */
 
-router.patch("/favorite/:noticeId", authenticate, wrapper(ctrlNotice.updateFavorite));
+router.patch(
+  "/favorite/:noticeId",
+  authenticate,
+  wrapper(ctrlNotice.updateFavorite)
+);
 
 /**
  * @swagger
- * /api/notices:
+ * /api/notices/{category}:
  *   get:
- *     summary: Get all notices
+ *     summary: Get all notices by category
  *     tags: [Notices]
  *     security:
  *       - bearerAuth: []
  *     parameters:
+ *       - in: path
+ *         name: category
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: Category of notices to retrieve (sell, in-good-hands, lost-found)
  *       - in: query
  *         name: query
  *         schema:
  *           type: string
  *         description: Filter notices by a search query
- *       - in: query
- *         name: category
- *         schema:
- *           type: string
- *         description: Filter notices by a search category
  *       - in: query
  *         name: age
  *         schema:
@@ -353,13 +368,18 @@ router.patch("/favorite/:noticeId", authenticate, wrapper(ctrlNotice.updateFavor
  *         description: Number of notices per page
  *     responses:
  *       200:
- *         description: A list of notices
+ *         description: A list of notices by category
  *         content:
  *           application/json:
  *             schema:
- *               type: array
- *               items:
- *                 $ref: '#/components/schemas/Notice'
+ *               type: object
+ *               properties:
+ *                 notices:
+ *                   type: array
+ *                   items:
+ *                     $ref: '#/components/schemas/Notice'
+ *                 totalCount:
+ *                   type: integer
  *       404:
  *         description: Missing or invalid fields
  *       500:
