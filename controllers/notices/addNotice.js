@@ -40,7 +40,6 @@ const addNotice = async (req, res, next) => {
   const avatarURL = `https://goit-team-03-node.onrender.com/public/noticesAvatars/${fileName}`;
 
   const result = await Notice.create({ ...req.body, avatarURL, owner });
-  console.log(result);
   return res.status(201).json(result);
 };
 
