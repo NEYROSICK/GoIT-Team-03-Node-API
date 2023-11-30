@@ -24,12 +24,7 @@ const addPet = async (req, res, next) => {
       console.error(err);
     });
 
-  const avatarURL = path.join(
-    "https://goit-team-03-node.onrender.com",
-    "public",
-    "petsAvatars",
-    fileName
-  );
+  const avatarURL = `https://goit-team-03-node.onrender.com/public/petsAvatars/${fileName}`;
 
   const result = await Pet.create({ ...req.body, avatarURL, owner });
 

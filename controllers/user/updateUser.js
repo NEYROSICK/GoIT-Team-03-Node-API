@@ -42,12 +42,7 @@ const updateUser = async (req, res, next) => {
           throw requestError(500, "File reading error");
         });
 
-      const avatarURL = path.join(
-        "https://goit-team-03-node.onrender.com",
-        "public",
-        "usersAvatars",
-        fileName
-      );
+      const avatarURL = `https://goit-team-03-node.onrender.com/public/usersAvatars/${fileName}`;
 
       updateData.avatarURL = avatarURL;
     }
