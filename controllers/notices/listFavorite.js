@@ -20,7 +20,7 @@ const listFavorite = async (req, res) => {
       skip,
     }
   );
-  const totalCount = await Notice.countDocuments(notices);
+
   if (age) {
     notices = notices.filter((notice) => ageNotice(notice, age));
   }
@@ -29,6 +29,8 @@ const listFavorite = async (req, res) => {
     notices = notices.filter((notice) => notice.sex === sex);
   }
 
+  const totalCount = notices.length;
+  
   res.json({ notices, totalCount });
 };
 module.exports = listFavorite;

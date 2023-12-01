@@ -16,14 +16,14 @@ const listNotices = async (req, res) => {
   if (!acceptedCategories.includes(category)) {
     throw requestError(404, "Category not found");
   }
-  let notices = await Notice.find({ $and: [{ category }, { title: { $regex: query, $options: "i" } }] }, "", {
-    limit,
-    skip,
-  });
-  const totalCount = await Notice.countDocuments({
-    title: { $regex: query, $options: "i" },
-    category,
-  });
+  let notices = await Notice.find(
+    { $and: [{ category }, { title: { $regex: query, $options: "i" } }] },
+    "",
+    {
+      limit,
+      skip,
+    }
+  );
 
   if (age) {
     notices = notices.filter((notice) => ageNotice(notice, age));
@@ -32,6 +32,7 @@ const listNotices = async (req, res) => {
   if (sex) {
     notices = notices.filter((notice) => notice.sex === sex);
   }
+  const totalCount = notices.length;
 
   res.json({ notices, totalCount });
 };

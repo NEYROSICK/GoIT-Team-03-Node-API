@@ -15,7 +15,7 @@ const listMyNotices = async (req, res) => {
       skip,
     }
   );
-  const totalCount = await Notice.countDocuments(notices);
+
   if (age) {
     notices = notices.filter((notice) => ageNotice(notice, age));
   }
@@ -23,7 +23,7 @@ const listMyNotices = async (req, res) => {
   if (sex) {
     notices = notices.filter((notice) => notice.sex === sex);
   }
-
+  const totalCount = notices.length;
   res.json({ notices, totalCount });
 };
 
