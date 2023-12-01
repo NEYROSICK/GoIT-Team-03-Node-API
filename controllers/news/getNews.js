@@ -10,9 +10,7 @@ const getNews = async (req, res, next) => {
       skip,
     }
   );
-  const totalCount = await News.countDocuments({
-    title: { $regex: query, $options: "i" },
-  });
+  const totalCount = news.length
   res.json({ news, totalCount });
 };
 module.exports = getNews;
