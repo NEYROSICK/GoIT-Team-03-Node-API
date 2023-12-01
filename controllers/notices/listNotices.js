@@ -32,7 +32,10 @@ const listNotices = async (req, res) => {
   if (sex) {
     notices = notices.filter((notice) => notice.sex === sex);
   }
-  const totalCount = notices.length;
+  const totalCount = await Notice.countDocuments({
+    title: { $regex: query, $options: "i" },
+    category,
+  });
 
   res.json({ notices, totalCount });
 };
