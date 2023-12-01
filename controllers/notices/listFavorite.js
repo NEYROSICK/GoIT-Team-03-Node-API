@@ -29,7 +29,7 @@ const listFavorite = async (req, res) => {
     notices = notices.filter((notice) => notice.sex === sex);
   }
 
-  const totalCount = notices.length;
+  const totalCount = await Notice.countDocuments(notices);
   
   res.json({ notices, totalCount });
 };
