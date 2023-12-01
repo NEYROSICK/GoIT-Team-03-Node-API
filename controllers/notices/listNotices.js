@@ -20,7 +20,10 @@ const listNotices = async (req, res) => {
     limit,
     skip,
   });
-  const totalCount = await Notice.countDocuments(notices);
+  const totalCount = await Notice.countDocuments({
+    title: { $regex: query, $options: "i" },
+    category,
+  });
 
   if (age) {
     notices = notices.filter((notice) => ageNotice(notice, age));
