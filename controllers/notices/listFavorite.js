@@ -12,11 +12,6 @@ const listFavorite = async (req, res) => {
     $and: [{ _id: { $in: user.favoritesArr } }, { title: { $regex: query, $options: "i" } }],
   };
 
-  let notices = await Notice.find(queryObject, "", {
-    limit,
-    skip,
-  });
-
   if (age === "to-1-from-2") {
     queryObject.$or = [{ age: { $lt: 1 } }, { age: { $gte: 2 } }];
   } else if (age) {
@@ -28,7 +23,7 @@ const listFavorite = async (req, res) => {
     queryObject.sex = sex;
   }
 
-  notices = await Notice.find(queryObject, "", {
+  const notices = await Notice.find(queryObject, "", {
     limit,
     skip,
   });
