@@ -18,7 +18,7 @@ SRV Посилання для приєднання до бд:
 
 ![.env file](./assets/env.png)
 
-## Endpoint's бекенда
+## Endpoint's бекенд
 
 `get` /api/pets &mdash; Отримання списку оголошень тваринок <br/>
 `post` /api/pets &mdash; Додавання оголошення про тваринку
