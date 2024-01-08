@@ -17,7 +17,9 @@ const listNotices = async (req, res) => {
     throw requestError(404, "Category not found");
   }
 
-  const queryObject = { $and: [{ category }, { title: { $regex: query, $options: "i" } }] };
+  const queryObject = {
+    $and: [{ category }, { title: { $regex: query, $options: "i" } }],
+  };
 
   if (age === "to-1-from-2") {
     queryObject.$or = [{ age: { $lt: 1 } }, { age: { $gte: 2 } }];
