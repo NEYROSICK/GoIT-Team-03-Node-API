@@ -84,11 +84,9 @@ const router = express.Router();
 router.patch(
   "/updateUser",
   authenticate,
-  uploadMiddleware.single("image"),
+  // uploadMiddleware.single("image"),
   validationMiddleware(schemas.usersSchema),
-  ctrl.updateUser, 
+  ctrl.updateUser
 );
-
-
 
 module.exports = router;

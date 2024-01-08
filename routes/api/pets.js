@@ -1,9 +1,6 @@
 const express = require("express");
-const {
-  validationMiddleware,
-  uploadMiddleware,
-  authenticate,
-} = require("../../middleware");
+const { validationMiddleware, authenticate } = require("../../middleware");
+const { handleFileUpload } = require("../../middleware/uploadMiddleware");
 const schema = require("../../schemas/pet");
 const ctrlPet = require("../../controllers/pet");
 const wrapper = require("../../helpers/controllerWrapper");
@@ -129,7 +126,7 @@ router.get("/", authenticate, wrapper(ctrlPet.listPets));
 router.post(
   "/add",
   authenticate,
-  uploadMiddleware.single("image"),
+  handleFileUpload,
   validationMiddleware(schema.addPet),
   wrapper(ctrlPet.addPet)
 );

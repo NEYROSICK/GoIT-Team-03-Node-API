@@ -1,30 +1,36 @@
 const Pet = require("../../models/pet");
 const { nanoid } = require("nanoid");
-const path = require("path");
 const fs = require("fs/promises");
-const Jimp = require("jimp");
+const cloudinary = require("cloudinary").v2;
+const { CLOUDINARY_SECRET_KEY } = process.env;
 
-const avatarsDir = path.join(__dirname, "../", "../", "public", "petsAvatars");
+cloudinary.config({
+  cloud_name: "dw6lgfflx",
+  api_key: "679261754518422",
+  api_secret: CLOUDINARY_SECRET_KEY,
+});
 
 const addPet = async (req, res, next) => {
   const { _id: owner } = req.user;
-  console.log(req.file);
   const { path: tempUpload, originalname } = req.file;
+  let originalNameNoExtension;
 
-  const fileName = `${owner}_${nanoid()}_${originalname}`;
-  const resultUpload = path.join(avatarsDir, fileName);
+  if (originalname.includes(".jpg")) {
+    originalNameNoExtension = originalname.split(".jpg").join("");
+  } else if (originalname.includes(".png")) {
+    originalNameNoExtension = originalname.split(".png").join("");
+  }
 
-  await fs.rename(tempUpload, resultUpload);
+  const fileName = `${owner}_${nanoid()}_${originalNameNoExtension}`;
 
-  await Jimp.read(resultUpload)
-    .then((img) => {
-      return img.resize(250, 250).quality(80).write(resultUpload);
-    })
-    .catch((err) => {
-      console.error(err);
-    });
+  const cloudinaryResult = await cloudinary.uploader.upload(tempUpload, {
+    folder: "petsAvatars",
+    public_id: fileName,
+  });
 
-  const avatarURL = `https://goit-team-03-node.onrender.com/public/petsAvatars/${fileName}`;
+  await fs.unlink(tempUpload);
+
+  const avatarURL = cloudinaryResult.url;
 
   const result = await Pet.create({ ...req.body, avatarURL, owner });
 

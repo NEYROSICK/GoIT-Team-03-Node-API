@@ -1,9 +1,5 @@
 const express = require("express");
-const {
-  validationMiddleware,
-  uploadMiddleware,
-  authenticate,
-} = require("../../middleware");
+const { validationMiddleware, uploadMiddleware, authenticate } = require("../../middleware");
 const schema = require("../../schemas/notice");
 const ctrlNotice = require("../../controllers/notices");
 const wrapper = require("../../helpers/controllerWrapper");
@@ -111,7 +107,7 @@ const router = express.Router();
 router.post(
   "/addNotice",
   authenticate,
-  uploadMiddleware.single("image"),
+  // uploadMiddleware.single("image"),
   validationMiddleware(schema.addNotice),
   wrapper(ctrlNotice.addNotice)
 );
@@ -146,11 +142,7 @@ router.post(
  *         description: Server error
  */
 
-router.delete(
-  "/deleteNotice/:noticeId",
-  authenticate,
-  wrapper(ctrlNotice.deleteNotice)
-);
+router.delete("/deleteNotice/:noticeId", authenticate, wrapper(ctrlNotice.deleteNotice));
 
 /**
  * @swagger
@@ -320,11 +312,7 @@ router.get("/myFavorite", authenticate, wrapper(ctrlNotice.listFavorite));
  *         description: Server error
  */
 
-router.patch(
-  "/favorite/:noticeId",
-  authenticate,
-  wrapper(ctrlNotice.updateFavorite)
-);
+router.patch("/favorite/:noticeId", authenticate, wrapper(ctrlNotice.updateFavorite));
 
 /**
  * @swagger

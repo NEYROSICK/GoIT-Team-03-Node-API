@@ -21,19 +21,18 @@ const login = async (req, res) => {
 
   if (user.token) {
     try {
-      jwt.verify(user.token, process.env.SECRET_KEY);
+      jwt.verify(user.token, process.env.AUTH_SECRET_KEY);
       return res.json({
         token: user.token,
         name: user.name,
         email: user.email,
       });
     } catch (error) {
-
       const payload = {
         id: user._id,
       };
 
-      const newToken = jwt.sign(payload, process.env.SECRET_KEY, {
+      const newToken = jwt.sign(payload, process.env.AUTH_SECRET_KEY, {
         expiresIn: "24h",
       });
 
@@ -50,7 +49,7 @@ const login = async (req, res) => {
     id: user._id,
   };
 
-  const token = jwt.sign(payload, process.env.SECRET_KEY, { expiresIn: "24h" });
+  const token = jwt.sign(payload, process.env.AUTH_SECRET_KEY, { expiresIn: "24h" });
   await User.findByIdAndUpdate(user._id, { token });
   res.json({
     token,
