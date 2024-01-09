@@ -1,5 +1,6 @@
 const express = require("express");
-const { validationMiddleware, uploadMiddleware, authenticate } = require("../../middleware");
+const { validationMiddleware, authenticate } = require("../../middleware");
+const { handleFileUpload } = require("../../middleware/uploadMiddleware");
 const schema = require("../../schemas/notice");
 const ctrlNotice = require("../../controllers/notices");
 const wrapper = require("../../helpers/controllerWrapper");
@@ -107,7 +108,7 @@ const router = express.Router();
 router.post(
   "/addNotice",
   authenticate,
-  // uploadMiddleware.single("image"),
+  handleFileUpload,
   validationMiddleware(schema.addNotice),
   wrapper(ctrlNotice.addNotice)
 );

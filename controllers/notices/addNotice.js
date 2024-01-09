@@ -1,11 +1,16 @@
 const Notice = require("../../models/notice");
-const path = require("path");
 const fs = require("fs/promises");
-const Jimp = require("jimp");
 const { nanoid } = require("nanoid");
 const { requestError } = require("../../helpers");
 const convertAge = require("../../helpers/convertAge");
-const avatarsDir = path.join(__dirname, "../", "../", "public", "noticesAvatars");
+const cloudinary = require("cloudinary").v2;
+const { CLOUDINARY_SECRET_KEY } = process.env;
+
+cloudinary.config({
+  cloud_name: "dw6lgfflx",
+  api_key: "679261754518422",
+  api_secret: CLOUDINARY_SECRET_KEY,
+});
 
 const addNotice = async (req, res, next) => {
   const { _id: owner } = req.user;
@@ -19,23 +24,27 @@ const addNotice = async (req, res, next) => {
   }
 
   const age = convertAge(date);
+  let originalNameNoExtension;
 
-  const fileName = `${owner}_${nanoid()}_${originalname}`;
-  const resultUpload = path.join(avatarsDir, fileName);
+  if (originalname.includes(".jpg")) {
+    originalNameNoExtension = originalname.split(".jpg").join("");
+  } else if (originalname.includes(".png")) {
+    originalNameNoExtension = originalname.split(".png").join("");
+  }
 
-  await fs.rename(tempUpload, resultUpload);
+  const fileName = `${owner}_${nanoid()}_${originalNameNoExtension}`;
 
-  await Jimp.read(resultUpload)
-    .then((img) => {
-      return img.resize(250, 250).quality(80).write(resultUpload);
-    })
-    .catch(() => {
-      throw requestError(500, "File reading error");
-    });
+  const cloudinaryResult = await cloudinary.uploader.upload(tempUpload, {
+    folder: "noticesAvatars",
+    public_id: fileName,
+  });
 
-  const avatarURL = `https://goit-team-03-node.onrender.com/public/noticesAvatars/${fileName}`;
+  await fs.unlink(tempUpload);
+
+  const avatarURL = cloudinaryResult.url;
 
   const result = await Notice.create({ ...req.body, avatarURL, owner, age });
+
   return res.status(201).json(result);
 };
 
